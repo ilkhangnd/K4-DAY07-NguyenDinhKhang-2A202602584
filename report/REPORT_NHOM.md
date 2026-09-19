@@ -67,7 +67,7 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 |  | SentenceChunker (`by_sentences`) | 64 | 757.1 | Tốt |
 |  | RecursiveChunker (`recursive`) | 81 | 597.0 | Tốt |
 | `ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65.md` | FixedSizeChunker (`fixed_size`) | 26 | 695.3 | Trung bình |
-|  | SenSentenceChunker (`by_sentences`)tence | 5 | 3361.0 | Có, nhưng chunk quá dài |
+|  | SentenceChunker (`by_sentences`)tence | 5 | 3361.0 | Có, nhưng chunk quá dài |
 |  | RecursiveChunker (`recursive`) | 25 | 661.2 | Tốt |
 
 > RecursiveChunker giữ ngữ cảnh tốt hơn vì ưu tiên tách theo đoạn văn, xuống dòng và câu, đồng thời vẫn giữ kích thước chunk gần ngưỡng 700 ký tự. FixedSizeChunker có độ dài ổn định nhưng có thể cắt giữa câu hoặc giữa quy định. SentenceChunker giữ nguyên câu nhưng có thể tạo chunk quá dài khi văn bản có ít dấu kết câu hoặc chứa nhiều menu/nhiễu.
