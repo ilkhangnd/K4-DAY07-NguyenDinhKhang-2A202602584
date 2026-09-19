@@ -137,21 +137,22 @@ class HeadingAwareChunker:
 - **Mô tả & lý do chọn:** Văn bản hành chính có điều, khoản và các dòng mốc thời gian, nên RecursiveChunker ưu tiên tách theo `\n\n`, `\n`, `. `, khoảng trắng rồi mới cắt ký tự. Cách này cố gắng giữ các ý trọn vẹn trước khi giảm kích thước chunk, phù hợp hơn với quy định có cấu trúc.
 - **Code snippet (nếu custom):** Không áp dụng
 
-**Thành viên 3 — Phạm Hồ Long Dũng**
+**Thành viên 3 — Phạm Hồ Quang Dũng**
 - **Loại chiến lược:** FixedSizeChunker, `chunk_size=500`, `overlap=50`.
-- **Mô tả & lý do chọn:** Chọn FixedSizeChunker có overlap làm baseline vì dễ kiểm soát độ dài chunk và overlap giảm nguy cơ cắt mất thông tin ngay tại ranh giới. Tuy nhiên, cách cắt theo ký tự không tôn trọng câu/điều khoản; kết quả benchmark với MockEmbedder chưa có evidence đáp án ở top-3, nên chủ yếu dùng để đối chiếu với Recursive và Heading-aware khi chạy embedding thật.
+- **Mô tả & lý do chọn:** Chọn FixedSizeChunker có overlap làm baseline vì dễ kiểm soát độ dài chunk và overlap giảm nguy cơ cắt mất thông tin ngay tại ranh giới. Chạy `bench.py` trên `data/registration/` (138 chunk) với embedding thật `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (`EMBEDDING_PROVIDER=local`, không phải MockEmbedder): cả 5/5 câu đều có chunk chứa đúng đáp án lọt vào top-3 (rank 2 hoặc rank 3), nhưng **0/5 câu đúng ở top-1** — chunk mở đầu/tiêu đề của mỗi tài liệu (đúng chủ đề, không có số liệu cụ thể) luôn thắng điểm cosine trước chunk thật sự chứa đáp án. Vì cắt cứng theo ký tự không tôn trọng câu/điều khoản, đáp án hay bị tách sang chunk kế tiếp thay vì nằm chung với phần mở đầu có similarity cao. Điểm rubric cá nhân: 5/10. Chi tiết: `ket_qua_benchmark.txt`, `report/REPORT_CANHAN.md` mục 5.
 - **Code snippet (nếu custom):** Không áp dụng
+
 
 ### So Sánh Giữa Các Thành Viên
 
 | Thành viên | Chiến lược (Strategy) | Điểm truy xuất (/10) | Điểm mạnh | Điểm yếu |
 |-----------|----------|----------------------|-----------|----------|
-| Nguyễn Đình Khang | HeadingAwareChunker, `chunk_size=700` | 7/10 (a) | Dùng embedding multilingual thật; evidence ở top-1 cho Q1–Q3, top-2 cho Q5. Việc giữ heading với section làm mốc thời gian còn đủ ngữ cảnh. | Bỏ lỡ chunk học phí UEH ở Q4; 209 chunks cho 6 trang cho thấy menu/nhiễu vẫn ảnh hưởng xếp hạng. |
-| Phạm Hồ Long Dũng | FixedSizeChunker, `chunk_size=500`, `overlap=50` | 0/10 (a) | Độ dài chunk nhất quán; overlap hạn chế cắt mất thông tin ở ranh giới. | Không có đáp án gold xuất hiện trong preview top-3 ở cả 5 câu. Dùng MockEmbedder nên score không mang ngữ nghĩa và không công bằng khi đối chiếu trực tiếp với embedding thật. |
-| Trần Long Khánh | RecursiveChunker, `chunk_size=500` | 3/10 (a) | Chạy lại chuẩn hoá với embedding multilingual thật có evidence ở Q1 và Q3 (top-2), Q5 (top-3); ưu tiên đoạn/dòng/câu phù hợp văn bản quy định. | Chưa lấy được evidence Q2, Q4; recursive không giữ heading nên các chunk chứa lịch dễ xếp sau phần tiêu đề/menu cùng trang. |
+| Nguyễn Đình Khang | HeadingAwareChunker, `chunk_size=700` | 7/10 | Dùng embedding multilingual thật; evidence ở top-1 cho Q1–Q3, top-2 cho Q5. Giữ heading với section làm mốc thời gian còn đủ ngữ cảnh. | Bỏ lỡ chunk học phí UEH ở Q4; 209 chunks cho 6 trang cho thấy menu/nhiễu vẫn ảnh hưởng xếp hạng. |
+| Trần Long Khánh | RecursiveChunker, `chunk_size=500` | 3/10 | Chạy chuẩn hoá với embedding multilingual thật, có evidence ở Q1 và Q3 (top-2), Q5 (top-3); ưu tiên đoạn/dòng/câu phù hợp văn bản quy định. | Chưa lấy được evidence Q2, Q4; recursive không giữ heading nên các chunk chứa lịch dễ xếp sau phần tiêu đề/menu cùng trang. |
+| Phạm Hồ Quang Dũng | FixedSizeChunker, `chunk_size=500`, `overlap=50` | 5/10 | Dùng embedding multilingual thật; đáp án lọt top-3 ở cả 5/5 câu — riêng Q2 và Q5 trúng đúng chunk gold chuẩn của nhóm (`ueh-quy-dinh...#12`, `ftu-dieu-chinh...#0`) ở rank 2. Độ dài chunk ổn định, overlap 50 hạn chế mất thông tin ở ranh giới. | Không câu nào đúng ở top-1 (0/5): cắt cứng theo ký tự tách đáp án ra khỏi đoạn mở đầu có similarity chủ đề cao, nên chunk đầu luôn thắng dù thiếu số liệu; 2/5 câu (Q2, Q5) bị chunk sai tài liệu (nhưng cùng chủ đề) chiếm top-1. |
 
 **Chiến lược nào tốt nhất cho chủ đề này? Tại sao?**
-> Với bằng chứng có thể kiểm tra trực tiếp, HeadingAwareChunker hiện tốt nhất: đạt 7/10 retrieval-evidence và đưa mốc trả lời lên top-1 ở Q1–Q3. Khi chạy chuẩn hoá cùng bộ 5 query và embedding multilingual, Recursive đạt 3/10: vẫn lấy được Q1, Q3, Q5 nhưng ở hạng thấp hơn. FixedSize phù hợp làm baseline về độ dài/overlap, nhưng với MockEmbedder đạt 0/10 và chưa phản ánh chất lượng semantic retrieval.
+> Với bằng chứng kiểm tra trực tiếp trên embedding thật (cả 3 thành viên), HeadingAwareChunker hiện tốt nhất: đạt 7/10 và đưa mốc trả lời lên top-1 ở Q1–Q3, vì giữ nguyên heading giúp mỗi chunk có đặc trưng riêng thay vì chỉ là đoạn mở đầu chung chung. Recursive đạt 3/10: giữ được câu trọn vẹn nhưng không neo theo heading nên vẫn bị lẫn với phần mở đầu/tiêu đề. FixedSize đạt 5/10 — luôn đưa được đáp án vào top-3 (5/5) nhờ overlap, nhưng chưa bao giờ đứng top-1 vì cắt cứng theo ký tự tách rời đáp án khỏi đoạn có similarity chủ đề cao nhất. Xu hướng chung: Chunk nào giữ được cấu trúc ngữ nghĩa của văn bản quy định (heading/điều khoản) thắng chunk chỉ kiểm soát độ dài.
 
 ---
 
@@ -171,35 +172,42 @@ class HeadingAwareChunker:
 
 ### Tổng hợp chất lượng truy xuất của nhóm
 
-> Cách chấm (theo `docs/SCORING.md`): **2 điểm/câu** — top-3 chứa chunk liên quan + agent trả lời đúng (2), có liên quan nhưng thiếu/không ở top-1 (1), không có trong top-3 (0).
+> Cách chấm (theo `docs/SCORING.md`): **2 điểm/câu** — top-3 chứa chunk liên quan + agent trả lời đúng (2), có liên quan nhưng thiếu/không ở top-1 (1), không có trong top-3 (0). Cột "Có chunk liên quan trong top-3?" tính theo chiến lược tốt nhất cho câu đó (best-of-3), vì nhóm được tính điểm khi ít nhất một chiến lược trong nhóm giải được câu hỏi.
 
-| # | Câu hỏi | Chiến lược tốt nhất cho câu này | Có chunk liên quan trong top-3? | Ghi chú |
+| # | Câu hỏi | Chiến lược tốt nhất cho câu này | Có chunk liên quan trong top-3? | Ghi chú (cả 3 chiến lược) |
 |---|---------|-------------------------------|-------------------------------|---------|
-| 1 | UIT khóa 20 đăng ký HK1 2026–2027 khi nào? | Heading-aware | Có — top-1 | Heading-aware: evidence top-1; Recursive: top-2; FixedSize: không có top-3. |
-| 2 | UEH hủy học phần đã đóng học phí và không rút học phí trước hạn nào? | Heading-aware | Có — top-1 | Heading-aware lấy đúng `ueh-...#16`, chứa “trước ngày thi kết thúc ... 10 ngày”; Recursive và FixedSize không có evidence top-3 khi chạy chuẩn hoá. |
-| 3 | FTU K63/K64 đăng ký tín chỉ bổ sung khi nào? | Heading-aware | Có — top-1 | Heading-aware: evidence top-1; Recursive: top-2; FixedSize: không có top-3. |
-| 4 | Học phí học phần thạc sĩ cho sinh viên đại học UEH là bao nhiêu? | Chưa có chiến lược đạt | Không | Cả Heading-aware, Recursive và FixedSize đều không lấy được chunk chứa 1.650.000 VNĐ/tín chỉ trong top-3. |
-| 5 | FTU điều chỉnh lịch đăng ký cho khóa 60–64 thành thời gian nào? | Heading-aware | Có — top-2 | Heading-aware lấy đúng `ftu-dieu-chinh-...#24` ở top-2; Recursive có evidence top-3; FixedSize không có evidence top-3. |
+| 1 | UIT khóa 20 đăng ký HK1 2026–2027 khi nào? | Heading-aware | Có — top-1 (2đ) | Heading-aware: top-1. Recursive: top-2. FixedSize: top-3 (`uit-dieu-chinh...#1`, chứa đúng "23/08/2026...khóa 20"). |
+| 2 | UEH hủy học phần đã đóng học phí và không rút học phí trước hạn nào? | Heading-aware | Có — top-1 (2đ) | Heading-aware lấy đúng `ueh-...#16`, chứa "trước ngày thi kết thúc ... 10 ngày". FixedSize: top-2, trúng đúng chunk gold `ueh-quy-dinh...#12`. Recursive: chưa có evidence trong top-3. |
+| 3 | FTU K63/K64 đăng ký tín chỉ bổ sung khi nào? | Heading-aware | Có — top-1 (2đ) | Heading-aware: top-1. Recursive: top-2. FixedSize: top-3 (`ftu-thoi-khoa-bieu...#1`, chứa đúng "14/9/2026 đến 18/9/2026, K63, K64"). |
+| 4 | Học phí học phần thạc sĩ cho sinh viên đại học UEH là bao nhiêu? | FixedSize | Có — top-2 (1đ) | FixedSize là chiến lược duy nhất có evidence: `ueh-dang-ky-hoc-phan-thac-si-dot1-2026#8` chứa đúng "Mức học phí: 1.650.000 VNĐ/tín chỉ" ở rank 2. Heading-aware và Recursive chưa tìm được chunk chứa số liệu này trong top-3. |
+| 5 | FTU điều chỉnh lịch đăng ký cho khóa 60–64 thành thời gian nào? | Heading-aware / FixedSize (đồng hạng) | Có — top-2 (1đ) | Heading-aware: top-2 (`ftu-dieu-chinh-...#24`). FixedSize: top-2, trúng đúng chunk gold `ftu-dieu-chinh...#0`. Recursive: top-3. |
 
-**Lưu ý về tính công bằng của so sánh:** Để chấm tự động, nhóm chạy lại đúng một corpus, 5 query, marker gold và `top_k=3`: Heading-aware và Recursive dùng `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`; FixedSize giữ MockEmbedder như cấu hình gốc của thành viên. Các file `ket_qua_benchmark-*-auto.txt` lưu chunk ID và evidence extract. Vì chưa có output agent/LLM, đây là điểm retrieval-evidence, chưa phải điểm rubric cuối cùng.
+**Lưu ý về tính công bằng của so sánh:** Cả 3 thành viên đã chạy lại bằng cùng một embedding backend thật `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` trên cùng corpus `data/registration/` và cùng 5 query — không còn thành viên nào dùng `MockEmbedder`. Chấm theo evidence nội dung (chuỗi đặc trưng của gold answer có thật trong chunk), không chỉ dựa vào `doc_id` đúng/sai, đúng tinh thần "chấm 2 mức" của lab. Vì chưa có output agent/LLM thật (đang dùng hàm LLM giả lập), đây là điểm retrieval-evidence, chưa phải điểm cuối cùng có tính cả bước sinh câu trả lời.
 
 **Lọc bằng metadata có giúp ích không? Ở câu hỏi nào?**
-> Ở Q1, top-3 của lượt không filter và lượt `{"audience": "student"}` giống hệt nhau, nên filter hiện chưa làm kết quả tốt hơn. Nguyên nhân là corpus có phần lớn tài liệu cho `student` và chưa có tài liệu `staff` cùng chủ đề để tạo cạnh tranh thực sự. Nếu làm lại, nhóm sẽ bổ sung tài liệu staff công khai và dùng một câu hỏi mơ hồ về đối tượng để đo được đánh đổi precision/recall của filter.
+> Với FixedSizeChunker (Dũng), chạy A/B cả 5 câu — có và không có `metadata_filter={"audience":"student"}` — cho **kết quả giống hệt nhau ở cả 5/5 câu**: tài liệu `ftu-quy-che-dao-tao-tin-chi` (`audience=all`) không lọt top-3 dù không lọc, vì đây là văn bản dài (46KB), chunk theo ký tự cố định làm loãng nội dung nên độ tương đồng cosine với các câu hỏi cụ thể luôn thấp hơn các thông báo ngắn cùng chủ đề. Với chiến lược và bộ 5 câu hiện tại, filter `audience` **chưa chứng minh được tác dụng thực nghiệm** — đúng cảnh báo của lab "kết quả giống hệt nhau nghĩa là câu hỏi chưa thực sự cần filter". Nhóm cần thử lại A/B này với HeadingAwareChunker (dễ giữ nguyên đoạn dài của quy chế thành chunk mạch lạc hơn, có thể đủ sức lọt top-3 và khiến filter phát huy tác dụng) trước khi kết luận field `audience` không cần thiết, hoặc bổ sung tài liệu `staff` thật để tạo cạnh tranh rõ ràng hơn cho filter.
+
+### Failure case — Câu 5 "FTU điều chỉnh lịch đăng ký cho khóa 60–64 thành thời gian nào?" (FixedSizeChunker)
+
+- **Câu nào hỏng:** Top-1 (score 0,7806) trả về `ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#0` — sai tài liệu: đây là thông báo TKB K65 và đăng ký bổ sung, không phải thông báo điều chỉnh lịch cho khóa 60–64. Đáp án đúng (`05/08–14/08/2026`) nằm ở `ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap#0`, chỉ xếp rank 2 (score 0,7492) — chênh lệch rất nhỏ (0,03).
+- **Vì sao:** Hai tài liệu đều là thông báo FTU về "đăng ký tín chỉ/học tập", chia sẻ gần như toàn bộ từ vựng chủ đề (khóa, đăng ký, tín chỉ, thời gian), nên cosine similarity giữa chúng và câu hỏi gần bằng nhau dù nội dung cụ thể khác hẳn (một cái nói khóa 65, cái kia nói khóa 60–64). Chunk `#0` của cả hai tài liệu đều là đoạn mở đầu chung chung, không đủ đặc trưng để phân biệt — cosine đo độ giống chủ đề chứ không đo đúng/sai về đối tượng áp dụng.
+- **Đề xuất sửa:** (1) Thêm số khóa (60–64 / K65) vào câu hỏi benchmark để giảm ambiguity từ vựng; (2) dùng HeadingAwareChunker để chunk mở đầu ngắn gọn hơn, ít lẫn nội dung chung; (3) cân nhắc thêm metadata `applies_to_cohort` (khóa áp dụng) để lọc trực tiếp thay vì chỉ dựa vào embedding.
 
 ---
 
 ## 4. Thuyết trình (Demo) & Bài học nhóm — Nhóm (5 điểm)
 
 **Những phân tích (insights) hay nhất nhóm sẽ trình bày:**
-> - Tách theo heading đưa các mốc thời gian/quy định quan trọng lên top-1 ở Q1–Q3, tốt hơn FixedSize và Recursive trong lần đo chuẩn hoá.
-> - Chỉ đúng `doc_id` chưa đủ: Q4 trả về đúng tài liệu UEH nhưng không có chunk nào trong top-3 chứa mức học phí; vì vậy nhóm chấm theo evidence ở cấp nội dung chunk.
-> - Embedding backend ảnh hưởng mạnh đến retrieval: FixedSize với MockEmbedder đạt 0/10, trong khi embedding multilingual cho phép phân biệt câu hỏi và section liên quan tốt hơn.
+> - Tách theo heading đưa các mốc thời gian/quy định quan trọng lên top-1 ở Q1–Q3, tốt hơn FixedSize và Recursive khi đo trên cùng embedding thật.
+> - Chỉ đúng `doc_id` chưa đủ: cả 3 chiến lược đều từng bị chunk mở đầu (đúng chủ đề, không có số liệu) chiếm top-1 thay vì chunk chứa đáp án thật — nhóm chấm theo evidence ở cấp nội dung chunk thay vì chỉ xem đúng tài liệu.
+> - FixedSizeChunker cho thấy rõ nhất giới hạn của cosine similarity: đáp án luôn lọt top-3 (5/5, nhờ overlap) nhưng không bao giờ đứng top-1, vì đoạn mở đầu/tiêu đề luôn thắng về độ giống chủ đề dù thiếu số liệu cụ thể — cosine đo chủ đề, không đo mật độ thông tin trả lời được.
 
 **Bài học rút ra khi so sánh trong nhóm:**
-> Cùng một corpus, chiến lược chunking quyết định thông tin nào được giữ chung với tiêu đề và được đưa vào ngữ cảnh truy xuất. Heading-aware phù hợp nhất với văn bản quy định vì không cắt rời điều/mục; Recursive vẫn lấy được một số evidence nhưng thường ở hạng thấp hơn. FixedSize hữu ích như baseline đơn giản, nhưng cần embedding có ngữ nghĩa và dữ liệu sạch để đánh giá công bằng.
+> Cùng một corpus, cùng một embedding backend, chiến lược chunking quyết định thông tin nào được giữ chung với tiêu đề/ngữ cảnh và được đưa vào kết quả truy xuất. Heading-aware phù hợp nhất với văn bản quy định vì không cắt rời điều/mục và giữ mỗi chunk đủ đặc trưng riêng. Recursive giữ được câu trọn vẹn nhưng vẫn có thể lẫn với phần mở đầu do không neo theo heading. FixedSize hữu ích như baseline đơn giản, dễ kiểm soát độ dài, nhưng luôn thua ở vị trí top-1 vì tách đáp án ra khỏi đoạn có similarity chủ đề cao nhất.
 
 **Nếu làm lại, nhóm sẽ thay đổi gì trong chiến lược dữ liệu (data strategy)?**
-> Nhóm sẽ làm sạch menu, footer và danh sách liên kết lặp lại trước khi chunk để giảm 209 chunks nhiễu từ 6 tài liệu. Đồng thời, nhóm sẽ bổ sung tài liệu công khai cho audience `staff` và thiết kế lại câu A/B để metadata filter thực sự thay đổi kết quả. Cuối cùng, mọi thành viên sẽ chạy cùng embedding backend, cùng 5 query và lưu evidence extract để việc so sánh tái lập được.
+> Nhóm sẽ làm sạch menu, footer và danh sách liên kết lặp lại trước khi chunk để giảm số chunk nhiễu. Đồng thời, nhóm sẽ bổ sung tài liệu công khai cho audience `staff` và thiết kế lại câu A/B để metadata filter thực sự thay đổi kết quả (hiện tại `audience=all` tự nhiên không lọt top-3 nên filter chưa chứng minh được tác dụng). Cuối cùng, mọi thành viên đã thống nhất chạy cùng embedding backend thật, cùng 5 query và lưu evidence extract để việc so sánh tái lập được — cần giữ kỷ luật này cho các lần benchmark sau.
+
 ---
 
 ## Tự Đánh Giá (Phần Nhóm)
@@ -208,6 +216,6 @@ class HeadingAwareChunker:
 |----------|-------------------|
 | Lựa chọn tài liệu (Document Set Quality) | 8 / 10 |
 | Thiết kế chiến lược (Strategy Design) | 13 / 15 |
-| Chất lượng truy xuất (Retrieval Quality) | 6 / 10 |
+| Chất lượng truy xuất (Retrieval Quality) | 8 / 10 |
 | Thuyết trình (Demo) | 0 / 5 |
-| **Tổng phần nhóm** | ** 27 / 40** |
+| **Tổng phần nhóm** | ** 29 / 40** |
