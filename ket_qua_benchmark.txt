@@ -1,74 +1,75 @@
 === CHECKPOINT 6: RETRIEVAL BENCHMARK ===
-Chiến lược chunking: RecursiveChunker (chunk_size=500)
+Chiến lược chunking: HeadingAwareChunker (chunk_size=700)
 Embedding backend: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
-Đã nạp 256 chunks từ 6 tài liệu.
+Đã nạp 209 chunks từ 6 tài liệu.
 
 Q1: UIT khóa 20 đăng ký HK1 2026-2027 khi nào?
 Gold evidence: Ngày 23/08/2026 (09h00–16h00)
   A. Không filter:
-    1. score=0.778 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#0 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
+    1. score=0.830 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#2 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=YES
+       # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn được đăng ký. Đợt 2 – Đăng ký điều chỉnh: Từ 0
+       Evidence extract: # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn được đăng ký.
+    2. score=0.778 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#0 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
        # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Thông báo điều chỉnh thời gian đăng ký học phần học kỳ 1 năm học 2026-2027 (lần 2) — Cổng thông tin UITBỏ qua phần điều hướng (028) 372 52002 info@uit.edu.vn Tuyể
-    2. score=0.703 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#2 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=YES
-       Ngày 22/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2024 (khóa 19). Sinh viên chưa đăng ký ngày 21/08 vẫn được đăng ký. Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn 
-       Evidence extract: tuyển năm 2024 (khóa 19). Sinh viên chưa đăng ký ngày 21/08 vẫn được đăng ký. Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn được đăng ký.
-    3. score=0.663 chunk_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap#0 doc_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap evidence=NO
-       # Thông báo điều chỉnh thời gian đăng ký học tập và thực tập giữa khóa HK1 2026-2027 - FTU THÔNG BÁO ĐIỀU CHỈNH THỜI GIAN ĐĂNG KÝ HỌC TẬP VÀ THỰC TẬP GIỮA KHÓA HỌC KỲ 1 NĂM HỌC 2026-2027 | Phòng Quản lý Đào tạo Behance Evernote Facebook Ins
-    Kết quả evidence: 1/2 (chunk đúng có đáp án ở top-2).
+    3. score=0.745 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#3 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
+       # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT (15/09/2026) [2026-2027] K2025 trở về trước - Thông báo về việc thu học phí học kỳ 1, năm học 2026-2027 hệ ĐTĐH (12/09/2026) Thư mời Quý Doanh nghiệp tham gia khả
+    Kết quả evidence: 2/2 (chunk đúng có đáp án ở top-1).
   B. Có filter {'audience': 'student'}:
-    1. score=0.778 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#0 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
+    1. score=0.830 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#2 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=YES
+       # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn được đăng ký. Đợt 2 – Đăng ký điều chỉnh: Từ 0
+       Evidence extract: # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn được đăng ký.
+    2. score=0.778 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#0 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
        # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Thông báo điều chỉnh thời gian đăng ký học phần học kỳ 1 năm học 2026-2027 (lần 2) — Cổng thông tin UITBỏ qua phần điều hướng (028) 372 52002 info@uit.edu.vn Tuyể
-    2. score=0.703 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#2 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=YES
-       Ngày 22/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2024 (khóa 19). Sinh viên chưa đăng ký ngày 21/08 vẫn được đăng ký. Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn 
-       Evidence extract: tuyển năm 2024 (khóa 19). Sinh viên chưa đăng ký ngày 21/08 vẫn được đăng ký. Ngày 23/08/2026 (09h00–16h00): Sinh viên khóa tuyển năm 2025 (khóa 20). Sinh viên chưa đăng ký ngày 21 và 22/08 vẫn được đăng ký.
-    3. score=0.663 chunk_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap#0 doc_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap evidence=NO
-       # Thông báo điều chỉnh thời gian đăng ký học tập và thực tập giữa khóa HK1 2026-2027 - FTU THÔNG BÁO ĐIỀU CHỈNH THỜI GIAN ĐĂNG KÝ HỌC TẬP VÀ THỰC TẬP GIỮA KHÓA HỌC KỲ 1 NĂM HỌC 2026-2027 | Phòng Quản lý Đào tạo Behance Evernote Facebook Ins
-    Kết quả evidence: 1/2 (chunk đúng có đáp án ở top-2).
+    3. score=0.745 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#3 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
+       # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT (15/09/2026) [2026-2027] K2025 trở về trước - Thông báo về việc thu học phí học kỳ 1, năm học 2026-2027 hệ ĐTĐH (12/09/2026) Thư mời Quý Doanh nghiệp tham gia khả
+    Kết quả evidence: 2/2 (chunk đúng có đáp án ở top-1).
 
 Q2: UEH hủy học phần đã đóng học phí và không rút học phí trước hạn nào?
 Gold evidence: trước ngày thi kết thúc học phần của học phần hủy 10 ngày
   Top-3 (không filter):
-    1. score=0.700 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#11 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
-       Mức học phí: 1.650.000 VNĐ/tín chỉ Trước ngày 22/3/2026 Sau thời gian này, học viên dự thính không hoàn tất nghĩa vụ học phí sẽ bị xóa tên trong lớp học phần đã đăng ký. 4 Học theo thời khóa biểu (TKB) Theo lớp học phần đã được đăng ký thàn
-    2. score=0.661 chunk_id=ueh-quy-dinh-dang-ky-huy-hoc-phan#16 doc_id=ueh-quy-dinh-dang-ky-huy-hoc-phan evidence=NO
-       Các trường hợp đã đóng học phí và không đăng ký lại, P.QLĐT-CTSV chuyển sang danh sách trả học phí. Phòng Tài chính – Kế toán sẽ hoàn trả học phí theo mỗi đợt đăng ký học phần. Chương V QUY ĐỊNH SINH VIÊN HỦY HỌC PHẦN ĐÃ ĐĂNG KÝ Điều 8. Đối
-    3. score=0.660 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#5 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
-       – Đang học 02 học kỳ cuối của bậc học đại học (Xem Phụ lục 1, Bảng mô tả hai (02) học kỳ cuối của các chương trình bậc đại học); – Xếp loại học lực từ loại Khá trở lên: Đạt điểm trung bình tích lũy từ 2,5 trở lên theo thang điểm 4; – Không 
-    Kết quả evidence: 0/2 (top-3 không chứa đáp án gold).
+    1. score=0.723 chunk_id=ueh-quy-dinh-dang-ky-huy-hoc-phan#16 doc_id=ueh-quy-dinh-dang-ky-huy-hoc-phan evidence=YES
+       Điều 8. Đối tượng, hình thức và thời gian nộp phiếu đề nghị hủy học phần đã đăng ký – Hủy học phần đã đóng học phí và không rút học phí: trước ngày thi kết thúc học phần của học phần hủy 10 ngày.
+       Evidence extract: hị hủy học phần đã đăng ký – Hủy học phần đã đóng học phí và không rút học phí: trước ngày thi kết thúc học phần của học phần hủy 10 ngày.
+    2. score=0.678 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#9 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
+       # Thông báo sinh viên đại học đăng ký học các học phần thuộc CT đào tạo thạc sĩ đợt 1/2026 - UEH 3 Hoàn tất nghĩa vụ học phí tại Cổng thanh toán trực tuyến UEH: https://payment.ueh.edu.vn/ Mức học phí: 1.650.000 VNĐ/tín chỉ Trước ngày 22/3/
+    3. score=0.672 chunk_id=ueh-quy-dinh-dang-ky-huy-hoc-phan#14 doc_id=ueh-quy-dinh-dang-ky-huy-hoc-phan evidence=NO
+       Điều 7. Quy định đối với các học phần bị hủy Các trường hợp đã đóng học phí và không đăng ký lại, P.QLĐT-CTSV chuyển sang danh sách trả học phí. Phòng Tài chính – Kế toán sẽ hoàn trả học phí theo mỗi đợt đăng ký học phần. Chương V QUY ĐỊNH 
+    Kết quả evidence: 2/2 (chunk đúng có đáp án ở top-1).
 
 Q3: FTU K63/K64 đăng ký tín chỉ bổ sung khi nào?
 Gold evidence: đăng ký từ ngày 14/9/2026 đến ngày 18/9/2026
   Top-3 (không filter):
-    1. score=0.596 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#0 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=NO
-       # Thông báo thời khóa biểu chính thức K65 và lịch đăng ký tín chỉ bổ sung - FTU THÔNG BÁO THỜI KHÓA BIỂU CHÍNH THỨC K65 VÀ LỊCH ĐĂNG KÝ TÍN CHỈ BỔ SUNG GIAI ĐOẠN VÀ ĐĂNG KÝ HỌC CÙNG K65 | Phòng Quản lý Đào tạo Behance Evernote Facebook Inst
-    2. score=0.508 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#29 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=YES
-       Phòng Quản lý đào tạo thông báo lịch đăng ký tín chỉ BỔ SUNG GIAI ĐOẠN 2 VÀ ĐĂNG KÝ HỌC CÙNG K65 như sau: I. Thời khóa biểu chính thức K65 Sinh viên xem thời khóa biểu các môn học được mở cho Khóa 65 tại đây: LINK II. Phân bổ thời gian đăng
-       Evidence extract: : đăng ký từ ngày 12/9/2026 đến ngày 13/9/2026. – Sinh viên các khóa K63, K64: đăng ký từ ngày 14/9/2026 đến ngày 18/9/2026.
-    3. score=0.499 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#0 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
-       # Thông báo điều chỉnh thời gian đăng ký học phần HK1 2026-2027 (lần 2) - UIT Thông báo điều chỉnh thời gian đăng ký học phần học kỳ 1 năm học 2026-2027 (lần 2) — Cổng thông tin UITBỏ qua phần điều hướng (028) 372 52002 info@uit.edu.vn Tuyể
-    Kết quả evidence: 1/2 (chunk đúng có đáp án ở top-2).
+    1. score=0.615 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#23 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=YES
+       # Thông báo thời khóa biểu chính thức K65 và lịch đăng ký tín chỉ bổ sung - FTU Căn cứ kết quả đăng ký học tập chính thức của sinh viên, Phòng Quản lý đào tạo thông báo lịch đăng ký tín chỉ BỔ SUNG GIAI ĐOẠN 2 VÀ ĐĂNG KÝ HỌC CÙNG K65 như sa
+       Evidence extract: : đăng ký từ ngày 12/9/2026 đến ngày 13/9/2026. – Sinh viên các khóa K63, K64: đăng ký từ ngày 14/9/2026 đến ngày 18/9/2026. III. NGUYÊN TẮC ĐĂNG KÝ
+    2. score=0.609 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#24 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=NO
+       # Thông báo thời khóa biểu chính thức K65 và lịch đăng ký tín chỉ bổ sung - FTU – Cho phép hủy đăng ký, đăng ký bổ sung môn học mới hoặc đăng ký lại các môn học đã hủy của giai đoạn 2, học kỳ I, năm học 2026-2027. – Cho phép đăng ký các học
+    3. score=0.599 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#27 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=NO
+       # Thông báo thời khóa biểu chính thức K65 và lịch đăng ký tín chỉ bổ sung - FTU Cổng Thông tin Tuyển sinh Đại học chính quy Hệ thống xét tuyển trực tuyến Hệ thống đăng ký HPTN và TTGK Bảng tin Quản lý đào tạo FTU Tuyển sinh Trường Đại học N
+    Kết quả evidence: 2/2 (chunk đúng có đáp án ở top-1).
 
 Q4: Học phí học phần thạc sĩ cho sinh viên đại học UEH là bao nhiêu?
 Gold evidence: Mức học phí: 1.650.000 VNĐ/tín chỉ
   Top-3 (không filter):
-    1. score=0.708 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#4 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
-       Áp dụng cho sinh viên đang học đại học tại UEH: gồm các sinh viên theo học chương trình đào tạo đại học, không phân biệt hệ đào tạo tại UEH. Bao gồm đại học chính quy, liên thông đại học chính quy, văn bằng 2 đại học chính quy, đại học vừa 
-    2. score=0.705 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#3 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
-       Đại học Kinh tế Thành phố Hồ Chí Minh (UEH) thông báo cho sinh viên đại học học các học phần cùng chương trình đào tạo thạc sĩ đợt 1/2026 như sau: Mục tiêu: Nhằm tạo điều kiện thuận lợi cho sinh viên UEH tiếp cận với chương trình đào tạo tr
-    3. score=0.671 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#5 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
-       – Đang học 02 học kỳ cuối của bậc học đại học (Xem Phụ lục 1, Bảng mô tả hai (02) học kỳ cuối của các chương trình bậc đại học); – Xếp loại học lực từ loại Khá trở lên: Đạt điểm trung bình tích lũy từ 2,5 trở lên theo thang điểm 4; – Không 
+    1. score=0.653 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#2 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
+       # Thông báo sinh viên đại học đăng ký học các học phần thuộc CT đào tạo thạc sĩ đợt 1/2026 - UEH Đại học Kinh tế Thành phố Hồ Chí Minh (UEH) thông báo cho sinh viên đại học học các học phần cùng chương trình đào tạo thạc sĩ đợt 1/2026 như s
+    2. score=0.628 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#4 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
+       # Thông báo sinh viên đại học đăng ký học các học phần thuộc CT đào tạo thạc sĩ đợt 1/2026 - UEH – Xếp loại học lực từ loại Khá trở lên: Đạt điểm trung bình tích lũy từ 2,5 trở lên theo thang điểm 4; – Không vi phạm kỷ luật của UEH hoặc khô
+    3. score=0.628 chunk_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026#3 doc_id=ueh-dang-ky-hoc-phan-thac-si-dot1-2026 evidence=NO
+       # Thông báo sinh viên đại học đăng ký học các học phần thuộc CT đào tạo thạc sĩ đợt 1/2026 - UEH Áp dụng cho sinh viên đang học đại học tại UEH: gồm các sinh viên theo học chương trình đào tạo đại học, không phân biệt hệ đào tạo tại UEH. Ba
     Kết quả evidence: 0/2 (top-3 không chứa đáp án gold).
 
 Q5: FTU điều chỉnh lịch đăng ký cho khóa 60-64 thành thời gian nào?
 Gold evidence: Thời gian đăng ký mới sau điều chỉnh: từ ngày 05/8/2026 đến ngày 14/8/2026
   Top-3 (không filter):
-    1. score=0.744 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#29 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=NO
-       Phòng Quản lý đào tạo thông báo lịch đăng ký tín chỉ BỔ SUNG GIAI ĐOẠN 2 VÀ ĐĂNG KÝ HỌC CÙNG K65 như sau: I. Thời khóa biểu chính thức K65 Sinh viên xem thời khóa biểu các môn học được mở cho Khóa 65 tại đây: LINK II. Phân bổ thời gian đăng
-    2. score=0.716 chunk_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan#1 doc_id=uit-dieu-chinh-thoi-gian-dang-ky-hoc-phan evidence=NO
-       Phòng Đào tạo Đại học thông báo về việc điều chỉnh thời gian đăng ký học phần học kỳ 1 năm học 2026–2027 (lần 2) Việc điều chỉnh nhằm phù hợp với kế hoạch triển khai phần mềm đăng ký học phần mới và hạn chế tình trạng quá tải hệ thống UMS t
-    3. score=0.686 chunk_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap#29 doc_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap evidence=YES
-       => Thời gian đăng ký mới sau điều chỉnh: từ ngày 05/8/2026 đến ngày 14/8/2026 – Sinh viên từ khóa 60 đến khóa 64. *** Đối tượng đăng ký – Sinh viên từ Khóa 59 trở về trước: có nhu cầu đăng ký học tập thì phải làm đơn đăng ký môn học và nộp 
-       Evidence extract: => Thời gian đăng ký mới sau điều chỉnh: từ ngày 05/8/2026 đến ngày 14/8/2026 – Sinh viên từ khóa 60 đến khóa 64. *** Đối tượng đăng ký – Sinh viên từ Khóa 59 trở về trước: có nhu cầu đăng ký học tập thì phải làm đơn đăng ký môn học và nộp về Phòng Quả
-    Kết quả evidence: 1/2 (chunk đúng có đáp án ở top-3).
+    1. score=0.781 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#23 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=NO
+       # Thông báo thời khóa biểu chính thức K65 và lịch đăng ký tín chỉ bổ sung - FTU Căn cứ kết quả đăng ký học tập chính thức của sinh viên, Phòng Quản lý đào tạo thông báo lịch đăng ký tín chỉ BỔ SUNG GIAI ĐOẠN 2 VÀ ĐĂNG KÝ HỌC CÙNG K65 như sa
+    2. score=0.718 chunk_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap#24 doc_id=ftu-dieu-chinh-thoi-gian-dang-ky-hoc-tap evidence=YES
+       # Thông báo điều chỉnh thời gian đăng ký học tập và thực tập giữa khóa HK1 2026-2027 - FTU => Thời gian đăng ký mới sau điều chỉnh: từ ngày 05/8/2026 đến ngày 14/8/2026 – Sinh viên từ khóa 60 đến khóa 64. *** Đối tượng đăng ký – Sinh viên t
+       Evidence extract: ều chỉnh thời gian đăng ký học tập và thực tập giữa khóa HK1 2026-2027 - FTU => Thời gian đăng ký mới sau điều chỉnh: từ ngày 05/8/2026 đến ngày 14/8/2026 – Sinh viên từ khóa 60 đến khóa 64. *** Đối tượng đăng ký – Sinh viên từ Khóa 59 trở về trước: có
+    3. score=0.697 chunk_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65#2 doc_id=ftu-thoi-khoa-bieu-lich-dang-ky-tin-chi-k65 evidence=NO
+       # Thông báo thời khóa biểu chính thức K65 và lịch đăng ký tín chỉ bổ sung - FTU Các bước thực hiện tuyển sinh 2022 Tiến độ tuyển sinh Nhập học Xác thực Nộp hồ sơ Đăng ký hồ sơ Tuyển sinh 2024 Hướng dẫn thủ tục 2024 Đăng ký học tập Tra cứu K
+    Kết quả evidence: 1/2 (chunk đúng có đáp án ở top-2).
 
-Tổng điểm retrieval-evidence tạm thời: 3/10
+Tổng điểm retrieval-evidence tạm thời: 7/10
 Lưu ý: đây chỉ chấm chunk có chứa đáp án. Điểm 2/2 chính thức còn cần kiểm tra câu trả lời của agent/LLM dựa trên context đó.
